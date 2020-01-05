@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Исходные файлы">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Файлы заголовков\tests">
+      <UniqueIdentifier>{61427fa8-570d-45f7-b5c3-3bed25e65f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\test">
+      <UniqueIdentifier>{644023bb-814f-43a9-8df3-499f25040244}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\OLD">
+      <UniqueIdentifier>{14ee7f01-db77-4824-b479-47dd047e0ee5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Исходные файлы\OLD">
+      <UniqueIdentifier>{b179d980-a488-496b-966f-853eda1a8a1a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BBReader.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="BBReaderFlow.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="BBReaderFlowTest.h">
+      <Filter>Файлы заголовков\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="BBReaderTest.h">
+      <Filter>Файлы заголовков\tests</Filter>
+    </ClInclude>
+    <ClInclude Include="FileFlow.h">
+      <Filter>Файлы заголовков\OLD</Filter>
+    </ClInclude>
+    <ClInclude Include="BitReader.h">
+      <Filter>Файлы заголовков\OLD</Filter>
+    </ClInclude>
+    <ClInclude Include="FileFlowTest.h">
+      <Filter>Файлы заголовков\OLD</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="BBReader.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="BBReaderFlow.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="BBReaderTest.cpp">
+      <Filter>Исходные файлы\test</Filter>
+    </ClCompile>
+    <ClCompile Include="BBReaderFlowTest.cpp">
+      <Filter>Исходные файлы\test</Filter>
+    </ClCompile>
+    <ClCompile Include="FileFlowTest.cpp">
+      <Filter>Исходные файлы\OLD</Filter>
+    </ClCompile>
+    <ClCompile Include="FileFlow.cpp">
+      <Filter>Исходные файлы\OLD</Filter>
+    </ClCompile>
+    <ClCompile Include="BitReader.cpp">
+      <Filter>Исходные файлы\OLD</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
