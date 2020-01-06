@@ -25,8 +25,10 @@ public:
 	bool is_eof(); // true если достигнут конец файла
 	bool is_open();// true если файл открыт
 	void t_deb(const std::string& str);
+	
 private:
 	std::string t_nameof_file;
 	std::ifstream t_in;
+	void t_go_end_not_eof();
 };
 

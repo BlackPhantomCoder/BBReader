@@ -41,7 +41,8 @@ bool BitReader::go_for_n(size_t n)
 void BitReader::go_end()
 {
 	t_in.clear();
-	t_in.seekg(1, t_in.end);
+	t_in.seekg(0, t_in.end);
+	t_in.get();
 }
 char BitReader::get_byte() {
 	char buf;
@@ -57,6 +58,10 @@ char BitReader::get_byte() {
 bool BitReader::get_n_bytes(char* buf,size_t& size) {
 	if (buf) {
 		if (is_open()) {
+			if (t_in.eof()) {
+				size = 0;
+				return false;
+			}
 			std::streampos pos = t_in.tellg();
 			t_in.read(buf, size);
 			if (t_in.fail()) {
@@ -67,6 +72,7 @@ bool BitReader::get_n_bytes(char* buf,size_t& size) {
 					t_in.read(&buf[size], 1);
 					size++;
 				}
+				size--;
 				return false;
 			}
 			else {
@@ -103,6 +109,9 @@ bool BitReader::is_open() {
 bool BitReader::go_for_n_back(size_t n)
 {
 	if (is_open()) {
+		if (t_in.eof()) {
+			t_go_end_not_eof();
+		}
 		std::streampos pos = t_in.tellg();
 		pos -= n;
 		t_in.clear();
@@ -121,4 +130,12 @@ void BitReader::t_deb(const std::string& str) {
 #ifdef DEBUG
 	std::cout << str << std::endl;
 #endif // DEBUG
+}
+
+void BitReader::t_go_end_not_eof()
+{
+	if(is_open()) {
+		t_in.clear();
+		t_in.seekg(0, t_in.end);
+	}
 }

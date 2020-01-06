@@ -13,6 +13,7 @@ class BBReader
 {
 public:
 	BBReader(const std::string& filename, size_t container_size = 2048);
+	~BBReader();
 	void close(); // закрывает файл, используется при удалении потока
 	bool go_at_n(size_t n);
 	bool go_for_n_back(size_t n);// перемещается в файле на позицию n (0 - начало файла), если позиция дальше конца файла - перемещает в конец
@@ -31,7 +32,7 @@ private:
 	size_t t_container_size;
 	void t_clear_container();
 	bool t_fill_container(size_t n);
-
+	char* read_buffer;
 };
 
 

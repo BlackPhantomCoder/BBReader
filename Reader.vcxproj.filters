@@ -42,11 +42,11 @@
     <ClInclude Include="FileFlow.h">
       <Filter>Файлы заголовков\OLD</Filter>
     </ClInclude>
-    <ClInclude Include="BitReader.h">
-      <Filter>Файлы заголовков\OLD</Filter>
-    </ClInclude>
     <ClInclude Include="FileFlowTest.h">
       <Filter>Файлы заголовков\OLD</Filter>
+    </ClInclude>
+    <ClInclude Include="BitReader.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -72,7 +72,7 @@
       <Filter>Исходные файлы\OLD</Filter>
     </ClCompile>
     <ClCompile Include="BitReader.cpp">
-      <Filter>Исходные файлы\OLD</Filter>
+      <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
