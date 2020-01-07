@@ -167,6 +167,37 @@ bool BBReader::read_n_bytes(std::vector<char>& vec, size_t n) {
 	}
 }
 
+bool BBReader::read_n_bytes(std::string& str, size_t n)
+{
+	if (is_open()) {
+		if (t_container.empty() || n > t_container.size()) {
+			if (t_fill_container(n - t_container.size())) {
+				str.reserve(n);
+				for (size_t i = 0; i < n; ++i) {
+					str.push_back(t_container.get_front());
+				}
+			}
+			else {
+				while (!t_container.empty()) {
+					str.push_back(t_container.get_front());
+				}
+				file->t_deb("fill_container error -> maybe eof");
+				return false;
+			}
+		}
+		else {
+			str.reserve(n);
+			for (size_t i = 0; i < n; ++i) {
+				str.push_back(t_container.get_front());
+			}
+		}
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
 void BBReader::t_clear_container() {
 	t_container.clear();
 }

@@ -85,17 +85,32 @@ bool BBReaderFlow::skip_while_not(char symbol)
 
 bool BBReaderFlow::skip_while_not(const std::string& word)
 {
-	/* TODO optimisate reading */
 	if (is_open()) {
 		std::string buf;
+		bool skip;
 		for (size_t i = 0; i < word.size(); i++) {
 			buf += read_byte();
 		}
 		while (!is_eof() && buf != word) {
-			for (size_t i = 0; i < buf.size() - 1; i++) {
-				buf[i] = buf[i + 1];
+			skip = true;
+			for (size_t i = 0; i < word.size(); i++) {
+				if (buf[buf.size() - 1] == word[i]) {
+					skip = false;
+					break;
+				}
 			}
-			buf[buf.size() - 1] = read_byte();
+			if (!skip) {
+				for (size_t i = 0; i < buf.size() - 1; i++) {
+					buf[i] = buf[i + 1];
+				}
+				buf[buf.size() - 1] = read_byte();
+			}
+			else {
+				buf.clear();
+				if (!read_n_bytes(buf, word.size())) {
+					return false;
+				}
+			}
 		}
 	}
 	return !is_eof();

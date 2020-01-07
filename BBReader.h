@@ -26,6 +26,7 @@ public:
 
 	char read_byte(); // читает следующий байт, если он есть,если нет - 0 (использовать в связке с is_eof());
 	bool read_n_bytes(std::vector<char>& vec, size_t n);
+	bool read_n_bytes(std::string& str, size_t n);
 
 private:
 	struct my_str {
