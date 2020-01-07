@@ -24,18 +24,37 @@ bool BBReaderFlow::read_while_not(std::vector<char>& vec, char symbol)
 
 bool BBReaderFlow::read_while_not(std::vector<char>& vec, const std::string& word)
 {
-	/* TODO optimisate reading */
 	if (is_open()) {
 		std::string buf;
+		bool skip;
 		for (size_t i = 0; i < word.size(); i++) {
 			buf += read_byte();
 		}
 		while (!is_eof() && buf != word) {
-			vec.push_back(buf[0]);
-			for (size_t i = 0; i < buf.size() - 1; i++) {
-				buf[i] = buf[i + 1];
+			skip = true;
+			for (size_t i = 0; i < word.size(); i++) {
+				if (buf[buf.size() - 1] == word[i]) {
+					skip = false;
+					break;
+				}
 			}
-			buf[buf.size() - 1] = read_byte();
+			if (!skip) {
+				vec.push_back(buf[0]);
+				for (size_t i = 0; i < buf.size() - 1; i++) {
+					buf[i] = buf[i + 1];
+				}
+				buf[buf.size() - 1] = read_byte();
+			}
+			else {
+				vec.reserve(buf.size());
+				for (size_t i = 0; i < buf.size(); i++) {
+					vec.push_back (buf[i]);
+				}
+				buf.clear();
+				if (!read_n_bytes(buf, word.size())) {
+					return false;
+				}
+			}
 		}
 	}
 	return !is_eof();
@@ -55,18 +74,37 @@ bool BBReaderFlow::read_while_not(std::string& str, char symbol)
 
 bool BBReaderFlow::read_while_not(std::string& str, const std::string& word)
 {
-	/* TODO optimisate reading */
 	if (is_open()) {
 		std::string buf;
+		bool skip;
 		for (size_t i = 0; i < word.size(); i++) {
 			buf += read_byte();
 		}
 		while (!is_eof() && buf != word) {
-			str += buf[0];
-			for (size_t i = 0; i < buf.size() - 1; i++) {
-				buf[i] = buf[i + 1];
+			skip = true;
+			for (size_t i = 0; i < word.size(); i++) {
+				if (buf[buf.size() - 1] == word[i]) {
+					skip = false;
+					break;
+				}
 			}
-			buf[buf.size() - 1] = read_byte();
+			if (!skip) {
+				str += buf[0];
+				for (size_t i = 0; i < buf.size() - 1; i++) {
+					buf[i] = buf[i + 1];
+				}
+				buf[buf.size() - 1] = read_byte();
+			}
+			else {
+				str.reserve(buf.size());
+				for (size_t i = 0; i < buf.size(); i++) {
+					str += buf[i];
+				}
+				buf.clear();
+				if (!read_n_bytes(buf, word.size())) {
+					return false;
+				}
+			}
 		}
 	}
 	return !is_eof();
