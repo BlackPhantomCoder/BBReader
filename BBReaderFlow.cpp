@@ -22,7 +22,7 @@ bool BBReaderFlow::read_while_not(std::vector<char>& vec, char symbol)
 	return !is_eof();
 }
 
-bool BBReaderFlow::read_while_not(std::vector<char>& vec, std::string word)
+bool BBReaderFlow::read_while_not(std::vector<char>& vec, const std::string& word)
 {
 	/* TODO optimisate reading */
 	if (is_open()) {
@@ -53,7 +53,7 @@ bool BBReaderFlow::read_while_not(std::string& str, char symbol)
 	return !is_eof();
 }
 
-bool BBReaderFlow::read_while_not(std::string& str, std::string word)
+bool BBReaderFlow::read_while_not(std::string& str, const std::string& word)
 {
 	/* TODO optimisate reading */
 	if (is_open()) {
@@ -83,7 +83,7 @@ bool BBReaderFlow::skip_while_not(char symbol)
 	return !is_eof();
 }
 
-bool BBReaderFlow::skip_while_not(std::string word)
+bool BBReaderFlow::skip_while_not(const std::string& word)
 {
 	/* TODO optimisate reading */
 	if (is_open()) {

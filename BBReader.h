@@ -9,6 +9,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <iterator> 
 class BBReader
 {
 public:
@@ -27,8 +28,25 @@ public:
 	bool read_n_bytes(std::vector<char>& vec, size_t n);
 
 private:
+	struct my_str {
+		my_str();
+		char get_front();
+		void reserve(size_t size);
+		void push_back(char symbol);
+		void push_back_n(const char* symbols, size_t size);
+		void clear();
+		size_t size();
+		void erase_begin(size_t n);
+		void erase_end(size_t n);
+		bool empty();
+		void insert_front_n(size_t n, char symbol);
+	private:
+		std::string t_str;
+		size_t t_first;
+		void t_deb(std::string str);
+	};
+	my_str t_container;
 	BitReader* file;
-	std::list<char> t_container;
 	size_t t_container_size;
 	void t_clear_container();
 	bool t_fill_container(size_t n);
