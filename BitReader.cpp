@@ -1,8 +1,27 @@
 #include "BitReader.h"
 
+
+BitReader::BitReader() {
+
+}
 BitReader::BitReader(const std::string& filename){
 	t_nameof_file = filename;
 	t_in.open(t_nameof_file, std::ios::binary);
+}
+BitReader::~BitReader()
+{
+	t_in.close();
+}
+bool BitReader::open(const std::string& filename)
+{
+	t_nameof_file = filename;
+	if(!t_in.is_open()) {
+		t_in.open(t_nameof_file, std::ios::binary);
+	}
+	else {
+		LOG("file already open");
+	}
+	return t_in.is_open();
 }
 void BitReader::close() {
 	t_in.close();
@@ -15,7 +34,7 @@ bool BitReader::go_at_n(size_t n)
 		if (t_in.fail() || t_in.eof()) {
 			t_in.clear();
 			t_in.seekg(0, t_in.end);
-			t_deb("go at END");
+			LOG("go at END");
 			return false;
 		}
 		else {
@@ -30,12 +49,15 @@ bool BitReader::go_for_n(size_t n)
 		if (t_in.bad()) {
 			t_in.clear();
 			t_in.seekg(0, t_in.end);
-			t_deb("eof");
+			LOG("eof");
 			return false;
 		}
 		else {
 			return true;
 		}
+	}
+	else {
+		return false;
 	}
 }
 void BitReader::go_end()
@@ -51,7 +73,7 @@ char BitReader::get_byte() {
 		return buf;
 	}
 	else {
-		t_deb("get_error");
+		LOG("get_error");
 		return 0;
 	}
 }
@@ -82,8 +104,7 @@ bool BitReader::get_n_bytes(char* buf,size_t& size) {
 	}
 	else {
 		size = 0;
-
-		t_deb("null pointer");
+		LOG("bull pointer");
 		return false;
 	}
 }
@@ -101,7 +122,7 @@ bool BitReader::is_open() {
 		return true;
 	}
 	else {
-		t_deb("file isn't open");
+		LOG("file isn't open");
 		return false;
 	}
 }
@@ -125,13 +146,10 @@ bool BitReader::go_for_n_back(size_t n)
 			return true;
 		}
 	}
+	else {
+		return false;
+	}
 }
-void BitReader::t_deb(const std::string& str) {
-#ifdef DEBUG
-	std::cout << str << std::endl;
-#endif // DEBUG
-}
-
 void BitReader::t_go_end_not_eof()
 {
 	if(is_open()) {

@@ -1,5 +1,13 @@
 #include "BBReader.h"
 
+BBReader::BBReader(size_t container_size)
+{
+	file = nullptr;
+	t_container_size = container_size;
+	read_buffer = new char[container_size];
+	t_container.reserve(container_size * 2);
+}
+
 BBReader::BBReader(const std::string& filename, size_t container_size)
 {
 	file = new BitReader(filename);
@@ -18,6 +26,29 @@ BBReader::~BBReader()
 	}
 	delete[] read_buffer;
 }
+bool BBReader::open(const std::string& filename, size_t container_size)
+{
+	if (file) {
+		if (file->is_open()) {
+			return false;
+		}
+		else {
+			file->close();
+			file->open(filename);
+		}
+	}
+	else {
+		file = new BitReader(filename);
+	}
+	if (container_size != t_container_size) {
+		delete[] read_buffer;
+		read_buffer = new char[container_size];
+		t_container_size = container_size;
+		t_container.clear();
+		t_container.reserve(container_size * 2);
+	}
+	return true;
+}
 void BBReader::close() {
 	if (is_open()) {
 		file->close();
@@ -27,7 +58,7 @@ void BBReader::close() {
 bool BBReader::go_at_n(size_t n) {
 	if (is_open()) {
 		if (!file->go_at_n(n)) {
-			file->t_deb("go at END");
+			LOG("go at END");
 			return false;
 		}
 		t_container.clear();
@@ -47,11 +78,11 @@ bool BBReader::go_for_n_back(size_t n) {
 					}
 				}
 				else {
-					file->t_deb("fail back");
+					LOG("fail back");
 				}
 			}
 			else {
-				file->t_deb("eof?");
+				LOG("eof?");
 				//file->go_end();
 				file->go_for_n_back(t_container.size() + n);
 				for (size_t i = 0; i < n; ++i) {
@@ -63,7 +94,7 @@ bool BBReader::go_for_n_back(size_t n) {
 		}
 		else {
 			if (!file->go_for_n_back(t_container.size() + n)) {
-				file->t_deb("fail!");
+				LOG("fail");
 				return false;
 			}
 			t_container.clear();
@@ -79,7 +110,7 @@ bool BBReader::go_for_n(size_t n) {
 		if (n > t_container.size()) {
 			if (is_open()) {
 				if (!file->go_for_n((n - t_container.size()))) {
-					file->t_deb("go at end (for)");
+					LOG("go at end (for)?");
 					return false;
 				}
 			}
@@ -138,6 +169,9 @@ char BBReader::read_byte() {
 		}
 		return result;
 	}
+	else {
+		return 0;
+	}
 }
 bool BBReader::read_n_bytes(std::vector<char>& vec, size_t n) {
 	if (is_open()) {
@@ -151,7 +185,7 @@ bool BBReader::read_n_bytes(std::vector<char>& vec, size_t n) {
 				while (!t_container.empty()) {
 					vec.push_back(t_container.get_front());
 				}
-				file->t_deb("fill_container error -> maybe eof");
+				LOG("fill_container error -> maybe eof");
 				return false;
 			}
 		}
@@ -181,7 +215,7 @@ bool BBReader::read_n_bytes(std::string& str, size_t n)
 				while (!t_container.empty()) {
 					str.push_back(t_container.get_front());
 				}
-				file->t_deb("fill_container error -> maybe eof");
+				LOG("fill_container error -> maybe eof");
 				return false;
 			}
 		}
@@ -213,7 +247,7 @@ bool BBReader::t_fill_container(size_t n) {
 				t_container.push_back_n(read_buffer, size);
 				if (!(size >= start_size + n)) {
 					filled = false;
-					file->t_deb("trying to read more bits than file consitsts");
+					LOG("trying to read more bits than file consitsts");
 				}
 				break;
 			}
@@ -240,7 +274,7 @@ char BBReader::my_str::get_front() {
 		}
 	}
 	else {
-		t_deb("error get_front");
+		LOG("error get_front");
 		if (t_str.size() > 0) {
 			clear();
 		}
@@ -279,7 +313,7 @@ void BBReader::my_str::erase_begin(size_t n) {
 			t_str.clear();
 		}
 		t_first = 0;
-		t_deb("error erase_begin");
+		LOG("error erase_begin");
 	}
 }
 void BBReader::my_str::erase_end(size_t n) {
@@ -287,7 +321,7 @@ void BBReader::my_str::erase_end(size_t n) {
 		t_str.erase(t_str.end(), t_str.end() + n);
 	}
 	else {
-		t_deb("error erase_end");
+		LOG("error erase_end");
 		clear();
 	}
 }
@@ -300,11 +334,4 @@ void BBReader::my_str::insert_front_n(size_t n, char symbol) {
 		t_first = 0;
 	}
 	t_str.insert(t_str.begin() + n, symbol);
-}
-
-void BBReader::my_str::t_deb(std::string str)
-{
-#ifdef DEBUG
-	std::cout << str <<std::endl;
-#endif
 }

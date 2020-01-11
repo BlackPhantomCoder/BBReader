@@ -1,16 +1,15 @@
 #include "BBReaderFlow.h"
-
-BBReaderFlow::BBReaderFlow(const std::string& filename, size_t container_size) : BBReader(filename, container_size)
+Reader::BBReaderFlow::BBReaderFlow(const std::string& filename, size_t container_size) : BBReader(filename, container_size)
 {
 
 }
 
-void BBReaderFlow::go_at_start()
+void Reader::BBReaderFlow::go_at_start()
 {
 	go_at_n(0);
 }
 
-bool BBReaderFlow::read_while_not(std::vector<char>& vec, char symbol)
+bool Reader::BBReaderFlow::read_while_not(std::vector<char>& vec, char symbol)
 {
 	if (is_open()) {
 		char next = read_byte();
@@ -22,7 +21,7 @@ bool BBReaderFlow::read_while_not(std::vector<char>& vec, char symbol)
 	return !is_eof();
 }
 
-bool BBReaderFlow::read_while_not(std::vector<char>& vec, const std::string& word)
+bool Reader::BBReaderFlow::read_while_not(std::vector<char>& vec, const std::string& word)
 {
 	if (is_open()) {
 		std::string buf;
@@ -60,7 +59,7 @@ bool BBReaderFlow::read_while_not(std::vector<char>& vec, const std::string& wor
 	return !is_eof();
 }
 
-bool BBReaderFlow::read_while_not(std::string& str, char symbol)
+bool Reader::BBReaderFlow::read_while_not(std::string& str, char symbol)
 {
 	if (is_open()) {
 		char next = read_byte();
@@ -72,7 +71,7 @@ bool BBReaderFlow::read_while_not(std::string& str, char symbol)
 	return !is_eof();
 }
 
-bool BBReaderFlow::read_while_not(std::string& str, const std::string& word)
+bool Reader::BBReaderFlow::read_while_not(std::string& str, const std::string& word)
 {
 	if (is_open()) {
 		std::string buf;
@@ -110,7 +109,7 @@ bool BBReaderFlow::read_while_not(std::string& str, const std::string& word)
 	return !is_eof();
 }
 
-bool BBReaderFlow::skip_while_not(char symbol)
+bool Reader::BBReaderFlow::skip_while_not(char symbol)
 {
 	if (is_open()) {
 		char next = read_byte();
@@ -121,7 +120,7 @@ bool BBReaderFlow::skip_while_not(char symbol)
 	return !is_eof();
 }
 
-bool BBReaderFlow::skip_while_not(const std::string& word)
+bool Reader::BBReaderFlow::skip_while_not(const std::string& word)
 {
 	if (is_open()) {
 		std::string buf;
@@ -154,12 +153,12 @@ bool BBReaderFlow::skip_while_not(const std::string& word)
 	return !is_eof();
 }
 
-bool BBReaderFlow::skip_byte()
+bool Reader::BBReaderFlow::skip_byte()
 {
 	return go_for_n(1);
 }
 
-bool BBReaderFlow::skip_n_bytes(size_t n)
+bool Reader::BBReaderFlow::skip_n_bytes(size_t n)
 {
 	return go_for_n(n);
 }

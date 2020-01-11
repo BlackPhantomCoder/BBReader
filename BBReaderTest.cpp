@@ -13,6 +13,7 @@ BBReaderTest::BBReaderTest()
 
 void BBReaderTest::test_all()
 {
+	test_open();
 	test_close();
 	test_go_at_n();
 	test_go_for_n_back();
@@ -22,6 +23,14 @@ void BBReaderTest::test_all()
 	test_is_open();
 	test_read_byte();
 	test_read_n_bytes();
+}
+
+void BBReaderTest::test_open()
+{
+	std::cout << "Testing read_byte() ... ";
+	BBReader reader;
+	reader.open(t_filename);
+	std::cout << reader.is_open() << std::endl;
 }
 
 void BBReaderTest::test_read_byte()

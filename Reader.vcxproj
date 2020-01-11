@@ -76,6 +76,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <PreprocessorDefinitions>_MBCS;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +131,7 @@
     <ClInclude Include="BitReader.h" />
     <ClInclude Include="FileFlow.h" />
     <ClInclude Include="FileFlowTest.h" />
+    <ClInclude Include="Logger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BBReader.cpp" />
@@ -139,6 +141,7 @@
     <ClCompile Include="BitReader.cpp" />
     <ClCompile Include="FileFlow.cpp" />
     <ClCompile Include="FileFlowTest.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Source.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
