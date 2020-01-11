@@ -126,6 +126,7 @@
   <ItemGroup>
     <ClInclude Include="BBReader.h" />
     <ClInclude Include="BBReaderFlow.h" />
+    <ClInclude Include="BBReaderFlowSpeedTest.h" />
     <ClInclude Include="BBReaderFlowTest.h" />
     <ClInclude Include="BBReaderTest.h" />
     <ClInclude Include="BitReader.h" />
@@ -136,6 +137,7 @@
   <ItemGroup>
     <ClCompile Include="BBReader.cpp" />
     <ClCompile Include="BBReaderFlow.cpp" />
+    <ClCompile Include="BBReaderFlowSpeedTest.cpp" />
     <ClCompile Include="BBReaderFlowTest.cpp" />
     <ClCompile Include="BBReaderTest.cpp" />
     <ClCompile Include="BitReader.cpp" />

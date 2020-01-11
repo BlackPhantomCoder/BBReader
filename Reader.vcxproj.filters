@@ -51,6 +51,9 @@
     <ClInclude Include="Logger.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="BBReaderFlowSpeedTest.h">
+      <Filter>Файлы заголовков\tests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -79,6 +82,9 @@
     </ClCompile>
     <ClCompile Include="Logger.cpp">
       <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="BBReaderFlowSpeedTest.cpp">
+      <Filter>Исходные файлы\test</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

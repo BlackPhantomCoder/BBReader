@@ -2,7 +2,7 @@
 
 BBReaderFlowTest::BBReaderFlowTest()
 {
-	filename = "output.txt";
+	filename = "testreaderflow.txt";
 	std::ofstream out(filename, std::ios::binary);
 	str = "123456789";
 	out << str;
@@ -11,16 +11,16 @@ BBReaderFlowTest::BBReaderFlowTest()
 
 void BBReaderFlowTest::test_all()
 {
-	void go_at_start();
-	void read_while_not();
-	void skip_while_not();
-	void skip_byte();
-	void skip_n_bytes();
+	go_at_start();
+	read_while_not();
+	skip_while_not();
+	skip_byte();
+	skip_n_bytes();
 }
 
 void BBReaderFlowTest::go_at_start()
 {
-	std::cout << "Testing  ... ";
+	std::cout << "Testing go_at_start()...";
 	Reader::BBReaderFlow reader(filename);
 	reader.go_at_n(5);
 	reader.go_at_start();
@@ -29,7 +29,7 @@ void BBReaderFlowTest::go_at_start()
 
 void BBReaderFlowTest::read_while_not()
 {
-	std::cout << "Testing  ... ";
+	std::cout << "Testing read_while_not()... ";
 	Reader::BBReaderFlow reader(filename);
 	std::string buf;
 	reader.read_while_not(buf, "7");
@@ -45,17 +45,16 @@ void BBReaderFlowTest::read_while_not()
 
 void BBReaderFlowTest::skip_while_not()
 {
-	std::cout << "Testing  ... ";
+	std::cout << "Testing skip_while_not()... ";
 	Reader::BBReaderFlow reader(filename);
 	std::string buf;
 	reader.read_while_not(buf, "7");
-
-	std::cout << (reader.read_byte() == str[9]) << std::endl;
+	std::cout << (reader.read_byte() == str[7]) << std::endl;
 }
 
 void BBReaderFlowTest::skip_byte()
 {
-	std::cout << "Testing  ... ";
+	std::cout << "Testing skip_byte()... ";
 	Reader::BBReaderFlow reader(filename);
 	reader.skip_byte();
 	std::cout << (reader.read_byte() == str[1])<< std::endl;
@@ -63,7 +62,7 @@ void BBReaderFlowTest::skip_byte()
 
 void BBReaderFlowTest::skip_n_bytes()
 {
-	std::cout << "Testing  ... ";
+	std::cout << "Testing skip_n_bytes()... ";
 	Reader::BBReaderFlow reader(filename);
 
 	reader.skip_n_bytes(5);

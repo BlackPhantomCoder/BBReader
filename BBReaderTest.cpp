@@ -2,7 +2,7 @@
 BBReaderTest::BBReaderTest()
 {
 	std::cout << std::boolalpha;
-	t_filename = "output.txt";
+	t_filename = "testreader.txt";
 	std::ofstream out(t_filename, std::ios::binary);
 	t_text = "123456789";
 	for (size_t i = 0; i < t_text.size(); ++i) {
